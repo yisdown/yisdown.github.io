@@ -1,0 +1,37 @@
+{% assign post = include.post %}
+{% assign featured = include.featured %}
+<a href="{{ post.url | relative_url }}" class="post-card{% if featured %} post-card--featured{% endif %}">
+  {% if featured %}
+    <div class="post-card__content">
+  {% endif %}
+
+  <div class="post-card__meta">
+    {% if post.category %}
+      {% assign cat = post.category | downcase %}
+      <span class="tag tag--{{ cat }}">{{ post.category }}</span>
+    {% endif %}
+    {% if post.difficulty %}
+      <span class="difficulty difficulty--{{ post.difficulty | downcase }}">{{ post.difficulty }}</span>
+    {% endif %}
+    {% if post.platform %}
+      <span class="tag tag--default">{{ post.platform }}</span>
+    {% endif %}
+    <span class="post-card__date">{{ post.date | date: "%b %d, %Y" }}</span>
+  </div>
+
+  <h2 class="post-card__title">{{ post.title }}</h2>
+
+  {% if post.excerpt %}
+    <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+  {% endif %}
+
+  <div class="post-card__footer">
+    {% assign words = post.content | number_of_words %}
+    <span>⏱ {{ words | divided_by: 200 | plus: 1 }} min read</span>
+    <span class="post-card__read-more">Read more →</span>
+  </div>
+
+  {% if featured %}
+    </div>
+  {% endif %}
+</a>

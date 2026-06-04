@@ -1,0 +1,110 @@
+---
+layout: default
+title: Write-ups
+permalink: /writeups/
+---
+
+<div class="layout-main">
+  <div class="container">
+    <div style="margin-bottom: 2.5rem;">
+      <div class="hero__eyebrow">Archive</div>
+      <h1 style="font-family: var(--font-display, 'Share Tech Mono'); font-size: 2rem; color: #e8e0f8; margin-bottom: 0.75rem;">Write-ups</h1>
+      <p style="color: #9a90b8; max-width: 560px;">All CTF solutions, vulnerability research, and security analysis — full methodology included.</p>
+
+      <!-- Filter tabs -->
+      <div class="filter-tabs" id="filter-tabs" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem;">
+        <button class="btn btn--primary filter-btn active" data-filter="all">All</button>
+        {% assign cats = site.posts | map: "category" | uniq | compact %}
+        {% for cat in cats %}
+          <button class="btn btn--ghost filter-btn" data-filter="{{ cat | downcase }}">{{ cat }}</button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="layout-main__grid" style="padding-top: 0;">
+      <div>
+        <div class="posts-grid" id="posts-grid">
+          {% for post in site.posts %}
+            {% assign cat = post.category | downcase | default: "other" %}
+            <a href="{{ post.url | relative_url }}"
+               class="post-card"
+               data-category="{{ cat }}">
+              <div class="post-card__meta">
+                {% if post.category %}
+                  <span class="tag tag--{{ cat }}">{{ post.category }}</span>
+                {% endif %}
+                {% if post.difficulty %}
+                  <span class="difficulty difficulty--{{ post.difficulty | downcase }}">{{ post.difficulty }}</span>
+                {% endif %}
+                <span class="post-card__date">{{ post.date | date: "%b %d, %Y" }}</span>
+              </div>
+              <h2 class="post-card__title">{{ post.title }}</h2>
+              {% if post.excerpt %}
+                <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+              {% endif %}
+              <div class="post-card__footer">
+                {% if post.platform %}<span>{{ post.platform }}</span>{% endif %}
+                <span class="post-card__read-more">Read more →</span>
+              </div>
+            </a>
+          {% endfor %}
+
+          {% if site.posts.size == 0 %}
+            <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: #5a5475; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
+              <div style="font-size: 2rem; margin-bottom: 1rem;">📭</div>
+              No write-ups yet. Check back soon.
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="widget">
+          <div class="widget__title">Categories</div>
+          <div class="category-list">
+            {% assign categories = site.categories | sort %}
+            {% for category in categories %}
+              <a href="#" class="filter-link" data-filter="{{ category[0] | downcase }}">
+                <span>{{ category[0] }}</span>
+                <span>{{ category[1] | size }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="widget">
+          <div class="widget__title">Difficulty</div>
+          <div class="category-list">
+            {% assign difficulties = site.posts | map: "difficulty" | uniq | compact %}
+            {% for diff in difficulties %}
+              <a href="#" class="filter-link" data-difficulty="{{ diff | downcase }}">
+                <span><span class="difficulty difficulty--{{ diff | downcase }}">{{ diff }}</span></span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<script>
+// Simple client-side filtering
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'btn--primary'));
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('btn--ghost'));
+    this.classList.add('active', 'btn--primary');
+    this.classList.remove('btn--ghost');
+
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.post-card').forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>

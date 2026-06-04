@@ -1,0 +1,159 @@
+// ============================================================
+// NAVIGATION
+// ============================================================
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $nav-height;
+  z-index: 100;
+  background: rgba($bg-void, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid $border-subtle;
+  transition: border-color $transition-normal;
+
+  &.scrolled {
+    border-color: $border-purple;
+  }
+
+  &__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-display;
+    font-size: 1.2rem;
+    color: $text-primary;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+
+    &-bracket {
+      color: $purple-bright;
+      font-weight: 700;
+    }
+
+    &-name {
+      color: $text-primary;
+    }
+
+    &-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: $purple-bright;
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    &:hover {
+      .nav__logo-name { color: $purple-bright; }
+      @include text-glow($purple-bright);
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+
+  &__link {
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: $text-secondary;
+    text-decoration: none;
+    padding: 0.4rem 0.85rem;
+    border-radius: $radius-sm;
+    border: 1px solid transparent;
+    transition: all $transition-fast;
+    position: relative;
+
+    &::before {
+      content: '>';
+      color: $purple-bright;
+      margin-right: 0.3rem;
+      opacity: 0;
+      transition: opacity $transition-fast;
+    }
+
+    &:hover, &.active {
+      color: $purple-bright;
+      border-color: $border-purple;
+      background: $purple-glow;
+
+      &::before { opacity: 1; }
+    }
+  }
+
+  &__mobile-toggle {
+    display: none;
+    background: none;
+    border: 1px solid $border-subtle;
+    color: $text-secondary;
+    padding: 0.4rem 0.6rem;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    font-size: 1rem;
+
+    @media (max-width: 640px) {
+      display: block;
+    }
+
+    &:hover {
+      border-color: $border-purple;
+      color: $purple-bright;
+    }
+  }
+}
+
+// Mobile menu
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: $nav-height;
+  left: 0;
+  right: 0;
+  background: rgba($bg-deep, 0.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid $border-purple;
+  z-index: 99;
+  padding: 1rem;
+
+  &.open { display: block; }
+
+  a {
+    display: block;
+    font-family: $font-mono;
+    font-size: 0.9rem;
+    color: $text-secondary;
+    padding: 0.75rem 1rem;
+    border-radius: $radius-sm;
+    transition: all $transition-fast;
+
+    &:hover, &.active {
+      color: $purple-bright;
+      background: $purple-glow;
+    }
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}

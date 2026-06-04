@@ -1,0 +1,98 @@
+// ============================================================
+// VARIABLES — edit these to retheme the entire site
+// ============================================================
+
+// Core palette
+$bg-void:        #0a0a0f;
+$bg-deep:        #0d0d18;
+$bg-card:        #111127;
+$bg-card-hover:  #161635;
+$bg-code:        #0c0c1e;
+
+$purple-bright:  #b06aff;
+$purple-mid:     #8844dd;
+$purple-dark:    #4a1e8a;
+$purple-glow:    rgba(176, 106, 255, 0.15);
+$purple-border:  rgba(176, 106, 255, 0.25);
+
+$green-neon:     #39ff8a;
+$green-dim:      #1a8a45;
+$red-alert:      #ff3366;
+$orange-warn:    #ff8c42;
+$cyan-accent:    #00d4ff;
+
+$text-primary:   #e8e0f8;
+$text-secondary: #9a90b8;
+$text-muted:     #5a5475;
+$text-code:      #c8b8ff;
+
+$border-subtle:  rgba(255,255,255,0.06);
+$border-purple:  rgba(176, 106, 255, 0.3);
+
+// Typography
+$font-display:   'Share Tech Mono', monospace;
+$font-body:      'IBM Plex Sans', sans-serif;
+$font-mono:      'JetBrains Mono', 'Fira Code', monospace;
+
+// Spacing
+$nav-height: 64px;
+$max-width:  1100px;
+$radius-sm:  4px;
+$radius-md:  8px;
+$radius-lg:  16px;
+
+// Transitions
+$transition-fast:   0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow:   0.4s ease;
+
+// ============================================================
+// MIXINS
+// ============================================================
+
+@mixin glow($color: $purple-bright, $intensity: 0.4) {
+  box-shadow: 0 0 20px rgba($color, $intensity),
+              0 0 60px rgba($color, $intensity * 0.3);
+}
+
+@mixin text-glow($color: $purple-bright) {
+  text-shadow: 0 0 20px rgba($color, 0.6),
+               0 0 40px rgba($color, 0.3);
+}
+
+@mixin card-base {
+  background: $bg-card;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  transition: all $transition-normal;
+
+  &:hover {
+    background: $bg-card-hover;
+    border-color: $border-purple;
+    transform: translateY(-2px);
+    @include glow($purple-mid, 0.2);
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin scanlines {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,120 @@
+---
+layout: default
+title: Home
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="hero__eyebrow">Security Research & CTF Write-ups</div>
+    <h1 class="hero__title">
+      Exploiting the<br>
+      <span class="accent">unknown</span>,<br>
+      one byte at a time.
+    </h1>
+    <p class="hero__desc">
+      Deep-dives into CTF challenges, vulnerability research, and offensive security techniques.
+      All write-ups include full methodology — not just the flag.
+    </p>
+    <div class="hero__cta">
+      <a href="{{ '/writeups/' | relative_url }}" class="btn btn--primary">View Write-ups →</a>
+      <a href="{{ '/about/' | relative_url }}" class="btn btn--outline">About me</a>
+    </div>
+
+    <div class="hero__stats">
+      <div class="hero__stat">
+        <div class="hero__stat-num">{{ site.posts | size }}</div>
+        <div class="hero__stat-label">Write-ups</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-num" id="ctf-count">—</div>
+        <div class="hero__stat-label">CTFs Played</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-num" id="category-count">{{ site.categories | size }}</div>
+        <div class="hero__stat-label">Categories</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="layout-main" style="padding-top: 0;">
+  <div class="container">
+    <div class="layout-main__grid">
+      <!-- Main content -->
+      <div>
+        <!-- Featured post -->
+        {% assign featured = site.posts | where: "featured", true | first %}
+        {% if featured %}
+          <div class="section-header">
+            <h2 class="section-header__title">Featured</h2>
+          </div>
+          {% include post-card.html post=featured featured=true %}
+        {% endif %}
+
+        <!-- Recent posts -->
+        <div class="section-header" style="margin-top: 3rem;">
+          <h2 class="section-header__title">Recent Write-ups</h2>
+          <a href="{{ '/writeups/' | relative_url }}" class="section-header__link">View all →</a>
+        </div>
+
+        <div class="posts-grid">
+          {% assign posts = site.posts | limit: 6 %}
+          {% for post in posts %}
+            {% unless post.featured %}
+              {% include post-card.html post=post %}
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Categories -->
+        <div class="widget">
+          <div class="widget__title">Categories</div>
+          <div class="category-list">
+            {% assign categories = site.categories | sort %}
+            {% for category in categories %}
+              <a href="{{ '/writeups/?cat=' | append: category[0] | relative_url }}">
+                <span>
+                  {% assign cat = category[0] | downcase %}
+                  {% if site.categories_icons[cat] %}{{ site.categories_icons[cat] }}{% endif %}
+                  {{ category[0] }}
+                </span>
+                <span>{{ category[1] | size }}</span>
+              </a>
+            {% endfor %}
+            {% if site.categories.size == 0 %}
+              <a href="#"><span>🏁 CTF</span><span>0</span></a>
+              <a href="#"><span>🌐 Web</span><span>0</span></a>
+              <a href="#"><span>💀 Pwn</span><span>0</span></a>
+              <a href="#"><span>🔬 Reversing</span><span>0</span></a>
+              <a href="#"><span>🔐 Crypto</span><span>0</span></a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Recent posts -->
+        <div class="widget">
+          <div class="widget__title">Latest Posts</div>
+          <div class="recent-list">
+            {% for post in site.posts limit: 5 %}
+              <div class="recent-list__item">
+                <a href="{{ post.url | relative_url }}" class="recent-list__title">{{ post.title }}</a>
+                <span class="recent-list__meta">{{ post.date | date: "%b %d, %Y" }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- RSS -->
+        <div class="widget" style="text-align: center;">
+          <div class="widget__title">Subscribe</div>
+          <a href="{{ '/feed.xml' | relative_url }}" class="btn btn--outline" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+            📡 RSS Feed
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+---
+layout: default
+---
+
+<article>
+  <div class="post-hero">
+    <div class="container">
+      <div class="post-hero__meta">
+        {% if page.category %}
+          {% assign cat = page.category | downcase %}
+          <span class="tag tag--{{ cat }}">{{ page.category }}</span>
+        {% endif %}
+        {% if page.difficulty %}
+          <span class="difficulty difficulty--{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>
+        {% endif %}
+        {% if page.platform %}
+          <span class="tag tag--default">{{ page.platform }}</span>
+        {% endif %}
+      </div>
+
+      <h1 class="post-hero__title">{{ page.title }}</h1>
+
+      {% if page.excerpt %}
+        <p class="post-hero__excerpt">{{ page.excerpt | strip_html }}</p>
+      {% endif %}
+
+      <div class="post-hero__info">
+        <span>📅 {{ page.date | date: "%B %d, %Y" }}</span>
+        {% if page.author %}
+          <span>✍️ {{ page.author }}</span>
+        {% endif %}
+        {% assign words = content | number_of_words %}
+        <span>⏱️ {{ words | divided_by: 200 | plus: 1 }} min read</span>
+        {% if page.points %}
+          <span>🏆 {{ page.points }} pts</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="layout-main__grid" style="padding-top: 0;">
+      <div class="post-content">
+        {{ content }}
+
+        <!-- Tags -->
+        {% if page.tags and page.tags.size > 0 %}
+          <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle);">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 0.75rem;">Tags:</span>
+            {% for tag in page.tags %}
+              <span class="tag tag--default" style="margin-right: 0.35rem;">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <!-- Navigation between posts -->
+        <nav style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); gap: 1rem; flex-wrap: wrap;">
+          {% if page.previous.url %}
+            <a href="{{ page.previous.url | relative_url }}" class="btn btn--ghost" style="max-width: 48%;">
+              ← {{ page.previous.title | truncate: 40 }}
+            </a>
+          {% else %}
+            <span></span>
+          {% endif %}
+          {% if page.next.url %}
+            <a href="{{ page.next.url | relative_url }}" class="btn btn--ghost" style="max-width: 48%; text-align: right;">
+              {{ page.next.title | truncate: 40 }} →
+            </a>
+          {% endif %}
+        </nav>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Table of contents placeholder — auto-generated via JS -->
+        <div class="widget" id="toc-widget" style="display: none;">
+          <div class="widget__title">Contents</div>
+          <div id="toc"></div>
+        </div>
+
+        <!-- Recent posts -->
+        <div class="widget">
+          <div class="widget__title">Recent Posts</div>
+          <div class="recent-list">
+            {% assign recent = site.posts | limit: 5 %}
+            {% for post in recent %}
+              {% unless post.url == page.url %}
+                <div class="recent-list__item">
+                  <a href="{{ post.url | relative_url }}" class="recent-list__title">{{ post.title }}</a>
+                  <span class="recent-list__meta">
+                    {% if post.category %}<span class="tag tag--{{ post.category | downcase }}" style="font-size: 0.6rem; padding: 0.1rem 0.4rem;">{{ post.category }}</span>{% endif %}
+                    {{ post.date | date: "%b %d, %Y" }}
+                  </span>
+                </div>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,92 @@
+---
+layout: default
+title: About
+permalink: /about/
+---
+
+<div class="container">
+  <div class="about-grid">
+    <!-- Profile card -->
+    <div>
+      <div class="profile-card">
+        <div class="profile-card__avatar">0x</div>
+        <div class="profile-card__name">{{ site.author }}</div>
+        <div class="profile-card__handle">@{{ site.github_username | default: "yourusername" }}</div>
+        <p class="profile-card__bio">
+          Security researcher and CTF player. Interested in binary exploitation, web security, and reverse engineering.
+        </p>
+        <div class="profile-card__skills">
+          <span class="tag tag--pwn">Pwn</span>
+          <span class="tag tag--web">Web</span>
+          <span class="tag tag--reversing">Rev</span>
+          <span class="tag tag--crypto">Crypto</span>
+          <span class="tag tag--ctf">CTF</span>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="https://github.com/{{ site.github_username }}" class="btn btn--outline" style="justify-content: center;" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          <a href="{{ '/feed.xml' | relative_url }}" class="btn btn--ghost" style="justify-content: center;">
+            RSS Feed
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- About content -->
+    <div class="post-content" style="padding-top: calc(64px + 3rem);">
+      <h1 style="font-family: 'Share Tech Mono', monospace; font-size: 2rem; color: #e8e0f8; margin-top: 0; margin-bottom: 1.5rem;">
+        <span style="color: #b06aff;">></span> whoami
+      </h1>
+
+      <p>
+        Welcome to my security research blog. I'm a CTF player and security researcher documenting
+        my journey through various challenges, vulnerability research, and offensive security concepts.
+      </p>
+
+      <h2>What I write about</h2>
+
+      <p>
+        Every write-up here is written with full methodology — I try to explain <em>why</em> something
+        works, not just <em>how</em>. Categories include:
+      </p>
+
+      <ul>
+        <li><strong>CTF Write-ups</strong> — Solutions to challenges from HackTheBox, TryHackMe, CTFTime events</li>
+        <li><strong>Web Security</strong> — XSS, SQLi, SSRF, deserialization, and other web vulns</li>
+        <li><strong>Binary Exploitation</strong> — Buffer overflows, ROP chains, format strings, heap exploitation</li>
+        <li><strong>Reverse Engineering</strong> — Malware analysis, crackmes, firmware reversing</li>
+        <li><strong>Cryptography</strong> — Breaking weak crypto implementations</li>
+      </ul>
+
+      <h2>Setup</h2>
+
+      <p>
+        My typical research environment:
+      </p>
+
+      <div class="note">
+        <div>
+          <strong>Note</strong>
+          You can update the tools section at <code>tools.html</code> with your actual setup.
+        </div>
+      </div>
+
+      <h2>Contact</h2>
+
+      <p>
+        Find me on GitHub or reach out via the platforms listed on the side. I'm always open to
+        discussing security topics, collaborating on CTFs, or responsible disclosure.
+      </p>
+
+      <div class="flag">
+        <div>
+          <strong>Responsible Disclosure</strong>
+          All vulnerabilities documented here are either from intentionally vulnerable labs,
+          CTF challenges, or disclosed to vendors prior to publication.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

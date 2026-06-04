@@ -1,0 +1,187 @@
+// ============================================================
+// BASE & RESET
+// ============================================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: $bg-void;
+  color: $text-primary;
+  font-family: $font-body;
+  font-size: 1rem;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+
+  // Subtle noise texture overlay
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+}
+
+// Links
+a {
+  color: $purple-bright;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: lighten($purple-bright, 10%);
+  }
+}
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Lists
+ul, ol {
+  list-style: none;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: $bg-deep;
+}
+::-webkit-scrollbar-thumb {
+  background: $purple-dark;
+  border-radius: 3px;
+  &:hover { background: $purple-mid; }
+}
+
+// Selection
+::selection {
+  background: rgba($purple-bright, 0.3);
+  color: $text-primary;
+}
+
+// Layout wrapper
+.container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+// Grid backgrounds
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba($purple-dark, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($purple-dark, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// Gradient orbs
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+
+  &--tl {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba($purple-dark, 0.25), transparent 70%);
+    top: -150px;
+    left: -150px;
+  }
+
+  &--br {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba($purple-mid, 0.15), transparent 70%);
+    bottom: -100px;
+    right: -100px;
+  }
+}
+
+// Utility classes
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-purple { color: $purple-bright; }
+.text-green  { color: $green-neon; }
+.text-muted  { color: $text-muted; }
+.text-mono   { font-family: $font-mono; }
+
+// Tag / badge
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: $font-mono;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: $radius-sm;
+  border: 1px solid;
+  transition: all $transition-fast;
+
+  &--ctf     { color: $green-neon;    border-color: rgba($green-neon,0.4);    background: rgba($green-neon,0.08); }
+  &--web     { color: $cyan-accent;   border-color: rgba($cyan-accent,0.4);   background: rgba($cyan-accent,0.08); }
+  &--pwn     { color: $red-alert;     border-color: rgba($red-alert,0.4);     background: rgba($red-alert,0.08); }
+  &--reversing { color: $orange-warn; border-color: rgba($orange-warn,0.4);   background: rgba($orange-warn,0.08); }
+  &--crypto  { color: $purple-bright; border-color: rgba($purple-bright,0.4); background: rgba($purple-bright,0.08); }
+  &--oscp    { color: #ffdd57;        border-color: rgba(#ffdd57,0.4);        background: rgba(#ffdd57,0.08); }
+  &--malware { color: $red-alert;     border-color: rgba($red-alert,0.4);     background: rgba($red-alert,0.08); }
+  &--network { color: $cyan-accent;   border-color: rgba($cyan-accent,0.4);   background: rgba($cyan-accent,0.08); }
+  &--default { color: $text-secondary; border-color: $border-subtle;          background: rgba(255,255,255,0.04); }
+}
+
+// Difficulty badge
+.difficulty {
+  font-family: $font-mono;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+
+  &--easy   { color: $green-neon;  background: rgba($green-neon, 0.1); }
+  &--medium { color: $orange-warn; background: rgba($orange-warn, 0.1); }
+  &--hard   { color: $red-alert;   background: rgba($red-alert, 0.1); }
+  &--insane { color: $purple-bright; background: rgba($purple-bright, 0.1); }
+}

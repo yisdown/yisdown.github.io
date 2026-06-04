@@ -1,0 +1,901 @@
+// ============================================================
+// HERO
+// ============================================================
+
+.hero {
+  padding-top: calc($nav-height + 5rem);
+  padding-bottom: 4rem;
+  position: relative;
+
+  &__eyebrow {
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $purple-bright;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: $purple-bright;
+    }
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: $text-primary;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+
+    .accent {
+      color: $purple-bright;
+      @include text-glow($purple-bright);
+    }
+  }
+
+  &__desc {
+    font-size: 1.05rem;
+    color: $text-secondary;
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  &__cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid $border-subtle;
+    flex-wrap: wrap;
+  }
+
+  &__stat {
+    &-num {
+      font-family: $font-display;
+      font-size: 2rem;
+      color: $purple-bright;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+      @include text-glow($purple-bright);
+    }
+    &-label {
+      font-family: $font-mono;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: $text-muted;
+    }
+  }
+}
+
+// ============================================================
+// BUTTONS
+// ============================================================
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: $font-mono;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.4rem;
+  border-radius: $radius-sm;
+  border: 1px solid;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &--primary {
+    color: $bg-void;
+    background: $purple-bright;
+    border-color: $purple-bright;
+
+    &:hover {
+      background: lighten($purple-bright, 8%);
+      border-color: lighten($purple-bright, 8%);
+      color: $bg-void;
+      @include glow($purple-bright, 0.5);
+      transform: translateY(-1px);
+    }
+  }
+
+  &--outline {
+    color: $purple-bright;
+    background: transparent;
+    border-color: $border-purple;
+
+    &:hover {
+      background: $purple-glow;
+      border-color: $purple-bright;
+      @include glow($purple-mid, 0.2);
+      transform: translateY(-1px);
+    }
+  }
+
+  &--ghost {
+    color: $text-secondary;
+    background: transparent;
+    border-color: $border-subtle;
+
+    &:hover {
+      color: $text-primary;
+      border-color: $border-purple;
+      background: rgba(255,255,255,0.04);
+    }
+  }
+}
+
+// ============================================================
+// POST CARDS
+// ============================================================
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.post-card {
+  @include card-base;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+
+  // Top accent line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, $purple-bright, transparent);
+    opacity: 0;
+    transition: opacity $transition-normal;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__date {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    color: $text-muted;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.05rem;
+    color: $text-primary;
+    line-height: 1.4;
+    transition: color $transition-fast;
+  }
+
+  &:hover &__title {
+    color: $purple-bright;
+  }
+
+  &__excerpt {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    line-height: 1.65;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid $border-subtle;
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    color: $text-muted;
+  }
+
+  &__read-more {
+    color: $purple-bright;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap $transition-fast;
+
+    .post-card:hover & {
+      gap: 0.5rem;
+    }
+  }
+}
+
+// Featured post (full width)
+.post-card--featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+
+  &::after {
+    content: 'FEATURED';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: $font-mono;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: $purple-bright;
+    background: rgba($purple-bright, 0.1);
+    border: 1px solid rgba($purple-bright, 0.3);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .post-card__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .post-card__title {
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
+}
+
+// ============================================================
+// SECTION HEADERS
+// ============================================================
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-subtle;
+
+  &__title {
+    font-family: $font-display;
+    font-size: 1.1rem;
+    color: $text-primary;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    &::before {
+      content: '//';
+      color: $purple-bright;
+      font-size: 0.9rem;
+    }
+  }
+
+  &__link {
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    color: $text-muted;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color $transition-fast;
+
+    &:hover { color: $purple-bright; }
+  }
+}
+
+// ============================================================
+// SIDEBAR WIDGETS
+// ============================================================
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.widget {
+  background: $bg-card;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  padding: 1.25rem;
+
+  &__title {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $purple-bright;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: $purple-bright;
+    }
+  }
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    color: $text-secondary;
+    padding: 0.4rem 0.5rem;
+    border-radius: $radius-sm;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $purple-bright;
+      background: $purple-glow;
+    }
+
+    span { color: $text-muted; font-size: 0.7rem; }
+  }
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid $border-subtle;
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  &__title {
+    font-size: 0.85rem;
+    color: $text-primary;
+    line-height: 1.35;
+    transition: color $transition-fast;
+
+    &:hover { color: $purple-bright; }
+  }
+
+  &__meta {
+    font-family: $font-mono;
+    font-size: 0.68rem;
+    color: $text-muted;
+  }
+}
+
+// ============================================================
+// LAYOUT: 2-COLUMN
+// ============================================================
+
+.layout-main {
+  padding-top: calc($nav-height + 3rem);
+  padding-bottom: 4rem;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2.5rem;
+    align-items: start;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ============================================================
+// POST CONTENT
+// ============================================================
+
+.post-hero {
+  padding-top: calc($nav-height + 3rem);
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid $border-subtle;
+  margin-bottom: 3rem;
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400;
+    color: $text-primary;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  &__excerpt {
+    font-size: 1.1rem;
+    color: $text-secondary;
+    line-height: 1.7;
+    max-width: 680px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    color: $text-muted;
+    flex-wrap: wrap;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+  }
+}
+
+.post-content {
+  max-width: 720px;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-display;
+    color: $text-primary;
+    margin: 2.5rem 0 1rem;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+  }
+
+  h1 { font-size: 1.9rem; }
+  h2 {
+    font-size: 1.4rem;
+    color: $purple-bright;
+    border-left: 3px solid $purple-bright;
+    padding-left: 0.75rem;
+    @include text-glow($purple-bright);
+  }
+  h3 { font-size: 1.15rem; color: lighten($purple-bright, 5%); }
+  h4 { font-size: 1rem; color: $text-secondary; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; }
+
+  p {
+    margin-bottom: 1.5rem;
+    color: $text-primary;
+    line-height: 1.85;
+  }
+
+  ul, ol {
+    margin: 0 0 1.5rem 1.5rem;
+    li {
+      margin-bottom: 0.5rem;
+      color: $text-primary;
+      list-style: initial;
+
+      &::marker { color: $purple-bright; }
+    }
+  }
+
+  ol li { list-style: decimal; }
+
+  blockquote {
+    border-left: 3px solid $purple-dark;
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba($purple-dark, 0.1);
+    border-radius: 0 $radius-sm $radius-sm 0;
+
+    p {
+      margin: 0;
+      color: $text-secondary;
+      font-style: italic;
+    }
+  }
+
+  // Info/note boxes
+  .note, .tip, .warning, .flag {
+    border-radius: $radius-sm;
+    padding: 1rem 1.25rem;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+    border-left: 3px solid;
+    display: flex;
+    gap: 0.75rem;
+
+    strong { display: block; margin-bottom: 0.3rem; font-family: $font-mono; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  }
+
+  .note    { background: rgba($cyan-accent, 0.07);   border-color: $cyan-accent;   color: lighten($cyan-accent, 10%); }
+  .tip     { background: rgba($green-neon, 0.07);    border-color: $green-neon;    color: lighten($green-neon, 5%); }
+  .warning { background: rgba($orange-warn, 0.07);   border-color: $orange-warn;   color: lighten($orange-warn, 5%); }
+  .flag    { background: rgba($purple-bright, 0.07); border-color: $purple-bright; color: $purple-bright; }
+
+  // Inline code
+  code:not([class*="language-"]) {
+    font-family: $font-mono;
+    font-size: 0.85em;
+    color: $text-code;
+    background: rgba($purple-dark, 0.25);
+    border: 1px solid rgba($purple-bright, 0.15);
+    border-radius: 3px;
+    padding: 0.15em 0.4em;
+  }
+
+  // Code blocks
+  .highlight, pre {
+    background: $bg-code !important;
+    border: 1px solid $border-purple;
+    border-radius: $radius-md;
+    overflow: hidden;
+    margin: 1.75rem 0;
+    position: relative;
+
+    pre {
+      margin: 0;
+      border: none;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: $font-mono;
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+  }
+
+  .highlight {
+    &::before {
+      content: attr(data-lang);
+      display: block;
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: $purple-bright;
+      background: rgba($purple-dark, 0.3);
+      padding: 0.4rem 1rem;
+      border-bottom: 1px solid $border-purple;
+    }
+  }
+
+  img {
+    border-radius: $radius-md;
+    border: 1px solid $border-subtle;
+    margin: 2rem 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+
+    th {
+      background: rgba($purple-dark, 0.3);
+      color: $purple-bright;
+      font-family: $font-mono;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid $border-purple;
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid $border-subtle;
+      color: $text-secondary;
+    }
+
+    tr:hover td {
+      background: rgba($purple-bright, 0.04);
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $border-subtle;
+    margin: 3rem 0;
+    position: relative;
+
+    &::after {
+      content: '◆';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: $bg-void;
+      color: $purple-dark;
+      padding: 0 0.75rem;
+      font-size: 0.6rem;
+    }
+  }
+}
+
+// ============================================================
+// FOOTER
+// ============================================================
+
+.footer {
+  border-top: 1px solid $border-subtle;
+  padding: 3rem 0 2rem;
+  margin-top: 4rem;
+  position: relative;
+  z-index: 1;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  &__brand {
+    font-family: $font-display;
+    font-size: 1.1rem;
+    color: $purple-bright;
+    margin-bottom: 0.75rem;
+    @include text-glow($purple-bright);
+  }
+
+  &__desc {
+    font-size: 0.85rem;
+    color: $text-muted;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  &__col-title {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $purple-bright;
+    margin-bottom: 1rem;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    a {
+      font-size: 0.85rem;
+      color: $text-muted;
+      transition: color $transition-fast;
+
+      &:hover { color: $purple-bright; }
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 1px solid $border-subtle;
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    color: $text-muted;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__social {
+    display: flex;
+    gap: 0.75rem;
+
+    a {
+      color: $text-muted;
+      transition: color $transition-fast;
+      font-size: 0.85rem;
+
+      &:hover { color: $purple-bright; }
+    }
+  }
+}
+
+// ============================================================
+// PAGINATION
+// ============================================================
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 3rem 0;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: $radius-sm;
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    border: 1px solid $border-subtle;
+    color: $text-secondary;
+    text-decoration: none;
+    transition: all $transition-fast;
+
+    &:hover {
+      border-color: $border-purple;
+      color: $purple-bright;
+      background: $purple-glow;
+    }
+
+    &--active {
+      background: $purple-bright;
+      border-color: $purple-bright;
+      color: $bg-void;
+    }
+
+    &--prev, &--next {
+      width: auto;
+      padding: 0 0.75rem;
+      gap: 0.3rem;
+    }
+  }
+}
+
+// ============================================================
+// ABOUT PAGE / TOOLS PAGE
+// ============================================================
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  padding-top: calc($nav-height + 3rem);
+  padding-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-card {
+  background: $bg-card;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  padding: 2rem;
+  text-align: center;
+  position: sticky;
+  top: calc($nav-height + 1rem);
+  height: fit-content;
+
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, $purple-dark, $purple-mid);
+    border-radius: 50%;
+    @include flex-center;
+    margin: 0 auto 1rem;
+    font-family: $font-display;
+    font-size: 1.5rem;
+    color: $text-primary;
+    border: 2px solid $border-purple;
+    @include glow($purple-mid, 0.3);
+  }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 1.1rem;
+    color: $text-primary;
+    margin-bottom: 0.25rem;
+  }
+
+  &__handle {
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    color: $purple-bright;
+    margin-bottom: 1rem;
+  }
+
+  &__bio {
+    font-size: 0.85rem;
+    color: $text-secondary;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  &__skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+  }
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.tool-card {
+  background: $bg-card;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  padding: 1.25rem;
+  transition: all $transition-normal;
+
+  &:hover {
+    border-color: $border-purple;
+    transform: translateY(-2px);
+  }
+
+  &__name {
+    font-family: $font-mono;
+    font-size: 0.9rem;
+    color: $purple-bright;
+    margin-bottom: 0.35rem;
+  }
+
+  &__desc {
+    font-size: 0.8rem;
+    color: $text-secondary;
+    line-height: 1.5;
+  }
+}

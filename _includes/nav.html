@@ -1,0 +1,23 @@
+<header class="nav" id="main-nav">
+  <div class="container nav__inner">
+    <a href="{{ '/' | relative_url }}" class="nav__logo">
+      <span class="nav__logo-bracket">[</span>
+      <span class="nav__logo-name">{{ site.title }}</span>
+      <span class="nav__logo-bracket">]</span>
+      <span class="nav__logo-cursor"></span>
+    </a>
+
+    <nav class="nav__links" aria-label="Main navigation">
+      {% for item in site.nav %}
+        <a href="{{ item.url | relative_url }}"
+           class="nav__link{% if page.url == item.url or page.url contains item.url and item.url != '/' %} active{% endif %}">
+          {{ item.title }}
+        </a>
+      {% endfor %}
+    </nav>
+
+    <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Toggle menu">
+      ☰
+    </button>
+  </div>
+</header>

@@ -1,0 +1,69 @@
+// Rouge syntax highlighting — dark purple theme
+.highlight {
+  .hll { background-color: rgba($purple-dark, 0.3) }
+  .c   { color: #6272a4; font-style: italic } // Comment
+  .err { color: $red-alert }                   // Error
+  .k   { color: $purple-bright; font-weight: bold } // Keyword
+  .l   { color: $green-neon }                  // Literal
+  .n   { color: $text-primary }                // Name
+  .o   { color: $cyan-accent }                 // Operator
+  .p   { color: $text-secondary }              // Punctuation
+  .cm  { color: #6272a4; font-style: italic }  // Comment.Multiline
+  .cp  { color: $orange-warn }                 // Comment.Preproc
+  .c1  { color: #6272a4; font-style: italic }  // Comment.Single
+  .cs  { color: #6272a4; font-style: italic }  // Comment.Special
+  .ge  { font-style: italic }
+  .gs  { font-weight: bold }
+  .kc  { color: $purple-bright; font-weight: bold }
+  .kd  { color: $purple-bright; font-weight: bold }
+  .kn  { color: $purple-bright; font-weight: bold }
+  .kp  { color: $purple-bright }
+  .kr  { color: $purple-bright; font-weight: bold }
+  .kt  { color: $cyan-accent }
+  .ld  { color: $green-neon }
+  .m   { color: $orange-warn }                 // Number
+  .s   { color: $green-neon }                  // String
+  .na  { color: $cyan-accent }                 // Name.Attribute
+  .nb  { color: $purple-bright }               // Name.Builtin
+  .nc  { color: $cyan-accent; font-weight: bold }
+  .no  { color: $orange-warn }
+  .nd  { color: $cyan-accent }
+  .ni  { color: $text-primary }
+  .ne  { color: $red-alert; font-weight: bold }
+  .nf  { color: $cyan-accent }                 // Name.Function
+  .nl  { color: $text-primary }
+  .nn  { color: $cyan-accent }
+  .nx  { color: $text-primary }
+  .py  { color: $purple-bright }
+  .nt  { color: $purple-bright }
+  .nv  { color: $text-primary }
+  .ow  { color: $cyan-accent; font-weight: bold }
+  .mb  { color: $orange-warn }
+  .mf  { color: $orange-warn }
+  .mh  { color: $orange-warn }
+  .mi  { color: $orange-warn }
+  .mo  { color: $orange-warn }
+  .sa  { color: $green-neon }
+  .sb  { color: $green-neon }
+  .sc  { color: $green-neon }
+  .dl  { color: $green-neon }
+  .sd  { color: $green-neon; font-style: italic }
+  .s2  { color: $green-neon }
+  .se  { color: $orange-warn; font-weight: bold }
+  .sh  { color: $green-neon }
+  .si  { color: $green-neon; font-style: italic }
+  .sx  { color: $green-neon }
+  .sr  { color: $red-alert }
+  .s1  { color: $green-neon }
+  .ss  { color: $purple-bright }
+  .bp  { color: $text-secondary }
+  .fm  { color: $cyan-accent }
+  .vc  { color: $text-primary }
+  .vg  { color: $text-primary }
+  .vi  { color: $text-primary }
+  .vm  { color: $text-primary }
+  .il  { color: $orange-warn }
+
+  // Line numbers
+  .gl  { color: $text-muted; user-select: none; padding-right: 1.5rem; }
+}

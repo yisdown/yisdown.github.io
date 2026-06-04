@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.description }}{% endif %}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+
+  {% seo %}
+</head>
+<body>
+
+  <!-- Background effects -->
+  <div class="grid-bg"></div>
+  <div class="orb orb--tl"></div>
+  <div class="orb orb--br"></div>
+
+  <!-- Navigation -->
+  {% include nav.html %}
+
+  <!-- Mobile menu -->
+  <nav class="mobile-menu" id="mobile-menu">
+    {% for item in site.nav %}
+      <a href="{{ item.url | relative_url }}"
+         {% if page.url == item.url or page.url contains item.url and item.url != '/' %}class="active"{% endif %}>
+        {{ item.title }}
+      </a>
+    {% endfor %}
+  </nav>
+
+  <!-- Page content -->
+  <main>
+    {{ content }}
+  </main>
+
+  <!-- Footer -->
+  {% include footer.html %}
+
+  <!-- Scripts -->
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

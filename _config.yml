@@ -1,0 +1,80 @@
+title: "0xVoid"
+description: "Security research, CTF write-ups, and vulnerability analysis"
+author: "0xVoid"
+email: ""
+baseurl: ""
+url: "https://yourusername.github.io"
+
+# Build settings
+theme: null
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    block:
+      line_numbers: true
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Pagination
+paginate: 6
+paginate_path: "/page/:num/"
+
+# Collections
+collections:
+  writeups:
+    output: true
+    permalink: /writeups/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "0xVoid"
+  - scope:
+      path: ""
+      type: "writeups"
+    values:
+      layout: "post"
+      category: "writeup"
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+
+# Navigation
+nav:
+  - title: "Home"
+    url: "/"
+  - title: "Write-ups"
+    url: "/writeups/"
+  - title: "Tools"
+    url: "/tools/"
+  - title: "About"
+    url: "/about/"
+
+# Categories with icons
+categories_icons:
+  ctf: "🏁"
+  web: "🌐"
+  pwn: "💀"
+  reversing: "🔬"
+  crypto: "🔐"
+  oscp: "🎯"
+  malware: "🦠"
+  network: "📡"

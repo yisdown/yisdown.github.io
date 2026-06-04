@@ -1,0 +1,39 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">{{ site.title }}</div>
+        <p class="footer__desc">{{ site.description }}</p>
+      </div>
+
+      <div>
+        <div class="footer__col-title">Navigation</div>
+        <nav class="footer__links">
+          {% for item in site.nav %}
+            <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+
+      <div>
+        <div class="footer__col-title">Categories</div>
+        <nav class="footer__links">
+          <a href="{{ '/writeups/' | relative_url }}">CTF Write-ups</a>
+          <a href="{{ '/writeups/?cat=web' | relative_url }}">Web Security</a>
+          <a href="{{ '/writeups/?cat=pwn' | relative_url }}">Binary Exploitation</a>
+          <a href="{{ '/writeups/?cat=reversing' | relative_url }}">Reversing</a>
+          <a href="{{ '/writeups/?cat=crypto' | relative_url }}">Cryptography</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© {{ 'now' | date: "%Y" }} {{ site.author }} — Built with Jekyll &amp; GitHub Pages</span>
+      <div class="footer__social">
+        <a href="{{ '/feed.xml' | relative_url }}" title="RSS Feed">RSS</a>
+        <a href="https://github.com/{{ site.github_username }}" title="GitHub" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/{{ site.twitter_username }}" title="Twitter" target="_blank" rel="noopener">Twitter</a>
+      </div>
+    </div>
+  </div>
+</footer>
