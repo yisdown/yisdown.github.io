@@ -9,11 +9,14 @@ permalink: /about/
     <!-- Profile card -->
     <div>
       <div class="profile-card">
-        <div class="profile-card__avatar">0x</div>
+        <div class="profile-card__avatar">Y</div>
         <div class="profile-card__name">{{ site.author }}</div>
-        <div class="profile-card__handle">@{{ site.github_username | default: "yourusername" }}</div>
+        <div class="profile-card__handle">
+          @{{ site.github_username | default: "yisdown" }}
+        </div>
         <p class="profile-card__bio">
-          Security researcher and CTF player. Interested in binary exploitation, web security, and reverse engineering.
+          Security researcher and CTF player. Interested in binary exploitation,
+          web security, and reverse engineering.
         </p>
         <div class="profile-card__skills">
           <span class="tag tag--pwn">Pwn</span>
@@ -23,11 +26,46 @@ permalink: /about/
           <span class="tag tag--ctf">CTF</span>
         </div>
 
-        <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <a href="https://github.com/{{ site.github_username }}" class="btn btn--outline" style="justify-content: center;" target="_blank" rel="noopener">
+        <div
+          style="
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          "
+        >
+          <a
+            href="https://github.com/{{ site.github_username }}"
+            class="btn btn--outline"
+            style="justify-content: center"
+            target="_blank"
+            rel="noopener"
+          >
             GitHub
           </a>
-          <a href="{{ '/feed.xml' | relative_url }}" class="btn btn--ghost" style="justify-content: center;">
+          <a
+            href="https://discord.com/users/544918949205114880"
+            class="btn btn--outline"
+            style="justify-content: center"
+            target="_blank"
+            rel="noopener"
+          >
+            Discord
+          </a>
+          <a
+            href="https://instagram.com/mishhuu_0"
+            class="btn btn--outline"
+            style="justify-content: center"
+            target="_blank"
+            rel="noopener"
+          >
+            Instagram
+          </a>
+          <a
+            href="{{ '/feed.xml' | relative_url }}"
+            class="btn btn--ghost"
+            style="justify-content: center"
+          >
             RSS Feed
           </a>
         </div>
@@ -35,56 +73,60 @@ permalink: /about/
     </div>
 
     <!-- About content -->
-    <div class="post-content" style="padding-top: calc(64px + 3rem);">
-      <h1 style="font-family: 'Share Tech Mono', monospace; font-size: 2rem; color: #e8e0f8; margin-top: 0; margin-bottom: 1.5rem;">
-        <span style="color: #b06aff;">></span> whoami
+    <div class="post-content" style="padding-top: calc(64px + 3rem)">
+      <h1
+        style="
+          font-family: &quot;Share Tech Mono&quot;, monospace;
+          font-size: 2rem;
+          color: #e8e0f8;
+          margin-top: 0;
+          margin-bottom: 1.5rem;
+        "
+      >
+        <span style="color: #b06aff">></span> whoami
       </h1>
 
       <p>
-        Welcome to my security research blog. I'm a CTF player and security researcher documenting
-        my journey through various challenges, vulnerability research, and offensive security concepts.
+        &nbsp;Welcome to my cybersecurity research blog. I'm a high school
+        student, cybersecurity enthusiast, CTF player, and security researcher
+        documenting my journey through various challenges, vulnerability
+        research, and offensive security concepts. I built this site to showcase
+        and document my projects as I learn.
       </p>
 
       <h2>What I write about</h2>
 
       <p>
-        Every write-up here is written with full methodology — I try to explain <em>why</em> something
-        works, not just <em>how</em>. Categories include:
+        &nbsp;Every write-up here is written with full methodology. I try to
+        explain <em>why</em> something works, not just <em>how</em>. Categories
+        include:
       </p>
 
       <ul>
-        <li><strong>CTF Write-ups</strong> — Solutions to challenges from HackTheBox, TryHackMe, CTFTime events</li>
-        <li><strong>Web Security</strong> — XSS, SQLi, SSRF, deserialization, and other web vulns</li>
-        <li><strong>Binary Exploitation</strong> — Buffer overflows, ROP chains, format strings, heap exploitation</li>
-        <li><strong>Reverse Engineering</strong> — Malware analysis, crackmes, firmware reversing</li>
-        <li><strong>Cryptography</strong> — Breaking weak crypto implementations</li>
+        <li><strong>CTF Write-ups</strong></li>
+        <li><strong>Web Security</strong></li>
+        <li><strong>Forensics</strong></li>
+        <li><strong>Reverse Engineering</strong></li>
+        <li><strong>Cryptography</strong></li>
+        <li><strong>Binary Exploitation</strong></li>
+        <li><strong>OSINT</strong></li>
+        <li><strong>Miscellaneous challenges</strong></li>
       </ul>
-
-      <h2>Setup</h2>
-
-      <p>
-        My typical research environment:
-      </p>
-
-      <div class="note">
-        <div>
-          <strong>Note</strong>
-          You can update the tools section at <code>tools.html</code> with your actual setup.
-        </div>
-      </div>
 
       <h2>Contact</h2>
 
       <p>
-        Find me on GitHub or reach out via the platforms listed on the side. I'm always open to
-        discussing security topics, collaborating on CTFs, or responsible disclosure.
+        &nbsp;Find me on GitHub or reach out via the platforms listed on the side. I'm
+        always open to discussing security topics, collaborating on CTFs, or
+        responsible disclosure.
       </p>
 
       <div class="flag">
         <div>
           <strong>Responsible Disclosure</strong>
-          All vulnerabilities documented here are either from intentionally vulnerable labs,
-          CTF challenges, or disclosed to vendors prior to publication.
+          &nbsp;All vulnerabilities documented here are either from intentionally
+          vulnerable labs, CTF challenges, or disclosed to vendors prior to
+          publication.
         </div>
       </div>
     </div>

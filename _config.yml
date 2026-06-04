@@ -1,9 +1,9 @@
-title: "0xVoid"
+title: "Y_isDown"
 description: "Security research, CTF write-ups, and vulnerability analysis"
-author: "0xVoid"
+author: "Y_isDown"
 email: ""
 baseurl: ""
-url: "https://yourusername.github.io"
+url: "https://yisdown.github.io"
 
 # Build settings
 theme: null
@@ -24,6 +24,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-paginate
 
 # Pagination
 paginate: 6
@@ -42,7 +43,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "0xVoid"
+      author: "Y_isDown"
   - scope:
       path: ""
       type: "writeups"

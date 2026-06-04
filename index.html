@@ -12,7 +12,7 @@ title: Home
       one byte at a time.
     </h1>
     <p class="hero__desc">
-      Deep-dives into CTF challenges, vulnerability research, and offensive security techniques.
+      CTF challenges Write-ups, vulnerability research, and offensive security techniques.
       All write-ups include full methodology — not just the flag.
     </p>
     <div class="hero__cta">
@@ -69,30 +69,7 @@ title: Home
 
       <!-- Sidebar -->
       <aside class="sidebar">
-        <!-- Categories -->
-        <div class="widget">
-          <div class="widget__title">Categories</div>
-          <div class="category-list">
-            {% assign categories = site.categories | sort %}
-            {% for category in categories %}
-              <a href="{{ '/writeups/?cat=' | append: category[0] | relative_url }}">
-                <span>
-                  {% assign cat = category[0] | downcase %}
-                  {% if site.categories_icons[cat] %}{{ site.categories_icons[cat] }}{% endif %}
-                  {{ category[0] }}
-                </span>
-                <span>{{ category[1] | size }}</span>
-              </a>
-            {% endfor %}
-            {% if site.categories.size == 0 %}
-              <a href="#"><span>🏁 CTF</span><span>0</span></a>
-              <a href="#"><span>🌐 Web</span><span>0</span></a>
-              <a href="#"><span>💀 Pwn</span><span>0</span></a>
-              <a href="#"><span>🔬 Reversing</span><span>0</span></a>
-              <a href="#"><span>🔐 Crypto</span><span>0</span></a>
-            {% endif %}
-          </div>
-        </div>
+        
 
         <!-- Recent posts -->
         <div class="widget">
