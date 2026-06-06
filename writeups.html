@@ -4,19 +4,19 @@ title: Write-ups
 permalink: /writeups/
 ---
 
-<div class="layout-main">
+<div class="layout-main writeups-page">
   <div class="container">
     <div style="margin-bottom: 2.5rem;">
       <div class="hero__eyebrow">Archive</div>
-      <h1 style="font-family: var(--font-display, 'Share Tech Mono'); font-size: 2rem; color: #e8e0f8; margin-bottom: 0.75rem;">Write-ups</h1>
-      <p style="color: #9a90b8; max-width: 560px;">All CTF solutions, vulnerability research, and security analysis — full methodology included.</p>
+      <h1 style="font-family: var(--font-display, 'Share Tech Mono'); font-size: 2rem; color: #f7f5ff; margin-bottom: 0.75rem;">Write-ups</h1>
+      <p style="color: #d4d0e6; max-width: 800px;">All CTF solutions, vulnerability research, and cyber security analysis, full methodology included.</p>
 
       <!-- Filter tabs -->
       <div class="filter-tabs" id="filter-tabs" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem;">
         <button class="btn btn--primary filter-btn active" data-filter="all">All</button>
-        {% assign cats = site.posts | map: "category" | uniq | compact %}
-        {% for cat in cats %}
-          <button class="btn btn--ghost filter-btn" data-filter="{{ cat | downcase }}">{{ cat }}</button>
+        {% assign platforms = site.posts | map: "platform" | uniq | compact | sort %}
+        {% for platform in platforms %}
+          <button class="btn btn--ghost filter-btn" data-filter="{{ platform | slugify }}">{{ platform }}</button>
         {% endfor %}
       </div>
     </div>
@@ -25,16 +25,35 @@ permalink: /writeups/
       <div>
         <div class="posts-grid" id="posts-grid">
           {% for post in site.posts %}
-            {% assign cat = post.category | downcase | default: "other" %}
+            {% assign platform = post.platform | default: "Other" %}
+            {% assign post_categories = post.categories %}
+            {% if post_categories == nil and post.category %}
+              {% assign post_categories = post.category | split: ',' %}
+            {% endif %}
+            {% assign category_slugs = '' %}
+            {% if post_categories %}
+              {% for category in post_categories %}
+                {% assign category_name = category | strip %}
+                {% assign category_slug = category_name | downcase | slugify %}
+                {% if forloop.first %}
+                  {% assign category_slugs = category_slug %}
+                {% else %}
+                  {% assign category_slugs = category_slugs | append: ',' | append: category_slug %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
             <a href="{{ post.url | relative_url }}"
                class="post-card"
-               data-category="{{ cat }}">
+               data-platform="{{ platform | slugify }}"
+               {% if category_slugs != '' %}data-categories="{{ category_slugs }}"{% endif %}
+               {% if post.difficulty %}data-difficulty="{{ post.difficulty | downcase }}"{% endif %}>
               <div class="post-card__meta">
-                {% if post.category %}
-                  <span class="tag tag--{{ cat }}">{{ post.category }}</span>
-                {% endif %}
-                {% if post.difficulty %}
-                  <span class="difficulty difficulty--{{ post.difficulty | downcase }}">{{ post.difficulty }}</span>
+                {% if post_categories %}
+                  {% for category in post_categories %}
+                    {% assign category_name = category | strip %}
+                    {% assign cat = category_name | downcase | slugify %}
+                    <span class="tag tag--{{ cat }}">{{ category_name }}</span>
+                  {% endfor %}
                 {% endif %}
                 <span class="post-card__date">{{ post.date | date: "%b %d, %Y" }}</span>
               </div>
@@ -43,14 +62,13 @@ permalink: /writeups/
                 <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
               {% endif %}
               <div class="post-card__footer">
-                {% if post.platform %}<span>{{ post.platform }}</span>{% endif %}
                 <span class="post-card__read-more">Read more →</span>
               </div>
             </a>
           {% endfor %}
 
           {% if site.posts.size == 0 %}
-            <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: #5a5475; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
+            <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: #b3b0c7; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
               <div style="font-size: 2rem; margin-bottom: 1rem;">📭</div>
               No write-ups yet. Check back soon.
             </div>
@@ -60,13 +78,27 @@ permalink: /writeups/
 
       <aside class="sidebar">
         <div class="widget">
+          <div class="widget__title">Platforms</div>
+          <div class="category-list">
+            {% assign platforms = site.posts | group_by: "platform" | sort: "name" %}
+            {% for platform in platforms %}
+              {% if platform.name %}
+                <a href="#" class="filter-link" data-filter="{{ platform.name | slugify }}">
+                  <span>{{ platform.name }}</span>
+                  <span>{{ platform.items | size }}</span>
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="widget">
           <div class="widget__title">Categories</div>
           <div class="category-list">
             {% assign categories = site.categories | sort %}
             {% for category in categories %}
-              <a href="#" class="filter-link" data-filter="{{ category[0] | downcase }}">
+              <a href="#" class="filter-link" data-category="{{ category[0] | slugify }}">
                 <span>{{ category[0] }}</span>
-                <span>{{ category[1] | size }}</span>
               </a>
             {% endfor %}
           </div>
@@ -89,22 +121,117 @@ permalink: /writeups/
 </div>
 
 <script>
-// Simple client-side filtering
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'btn--primary'));
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('btn--ghost'));
-    this.classList.add('active', 'btn--primary');
-    this.classList.remove('btn--ghost');
+const filterButtons = document.querySelectorAll('.filter-btn');
+const filterLinks = document.querySelectorAll('.filter-link');
+const postCards = document.querySelectorAll('.post-card');
+const platformLinks = document.querySelectorAll('[data-filter]:not([data-category]):not([data-difficulty])');
+const categoryLinks = document.querySelectorAll('[data-category]');
+const difficultyLinks = document.querySelectorAll('[data-difficulty]');
 
-    const filter = this.dataset.filter;
-    document.querySelectorAll('.post-card').forEach(card => {
-      if (filter === 'all' || card.dataset.category === filter) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
+let activePlatform = 'all';
+let activeCategories = [];
+let activeDifficulty = 'all';
+
+function syncSidebarActive(links, activeValue, attrName) {
+  links.forEach(link => {
+    const isActive = activeValue !== 'all' && link.dataset[attrName] === activeValue;
+    link.classList.toggle('is-active', isActive);
+  });
+}
+
+function syncMultiSidebarActive(links, activeValues, attrName) {
+  links.forEach(link => {
+    const isActive = activeValues.includes(link.dataset[attrName]);
+    link.classList.toggle('is-active', isActive);
+  });
+}
+
+function applyFilters() {
+  postCards.forEach(card => {
+    const platformMatches = activePlatform === 'all' || card.dataset.platform === activePlatform;
+    const cardCategories = (card.dataset.categories || '')
+      .split(',')
+      .map(category => category.trim())
+      .filter(Boolean);
+    const categoryMatches = activeCategories.length === 0 || cardCategories.some(category => activeCategories.includes(category));
+    const difficultyMatches = activeDifficulty === 'all' || card.dataset.difficulty === activeDifficulty;
+    card.style.display = platformMatches && categoryMatches && difficultyMatches ? '' : 'none';
+  });
+
+  syncSidebarActive(platformLinks, activePlatform, 'filter');
+  syncMultiSidebarActive(categoryLinks, activeCategories, 'category');
+  syncSidebarActive(difficultyLinks, activeDifficulty, 'difficulty');
+}
+
+function setActivePlatform(filter) {
+  activePlatform = filter;
+
+  filterButtons.forEach(button => {
+    const isActive = button.dataset.filter === filter;
+    button.classList.toggle('active', isActive);
+    button.classList.toggle('btn--primary', isActive);
+    button.classList.toggle('btn--ghost', !isActive);
+  });
+
+  applyFilters();
+}
+
+function toggleCategory(filter) {
+  if (activeCategories.includes(filter)) {
+    activeCategories = activeCategories.filter(category => category !== filter);
+  } else {
+    activeCategories = [...activeCategories, filter];
+  }
+
+  applyFilters();
+}
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', function() {
+    setActivePlatform(this.dataset.filter);
   });
 });
+
+filterLinks.forEach(link => {
+  link.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if (this.dataset.filter) {
+      setActivePlatform(this.dataset.filter);
+      return;
+    }
+
+    if (this.dataset.category) {
+      toggleCategory(this.dataset.category);
+      return;
+    }
+
+    if (this.dataset.difficulty) {
+      activeDifficulty = this.dataset.difficulty;
+      applyFilters();
+    }
+  });
+});
+
+const params = new URLSearchParams(window.location.search);
+const platformParam = params.get('platform');
+const categoryParam = params.get('category');
+const difficultyParam = params.get('difficulty');
+
+if (platformParam) {
+  setActivePlatform(platformParam.toLowerCase());
+}
+
+if (categoryParam) {
+  activeCategories = categoryParam
+    .split(',')
+    .map(category => category.trim().toLowerCase())
+    .filter(Boolean);
+  applyFilters();
+}
+
+if (difficultyParam) {
+  activeDifficulty = difficultyParam.toLowerCase();
+  applyFilters();
+}
 </script>

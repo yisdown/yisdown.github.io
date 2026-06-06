@@ -159,7 +159,7 @@ ul, ol {
   border: 1px solid;
   transition: all $transition-fast;
 
-  &--ctf     { color: $green-neon;    border-color: rgba($green-neon,0.4);    background: rgba($green-neon,0.08); }
+  &--misc     { color: $green-neon;    border-color: rgba($green-neon,0.4);    background: rgba($green-neon,0.08); }
   &--web     { color: $cyan-accent;   border-color: rgba($cyan-accent,0.4);   background: rgba($cyan-accent,0.08); }
   &--pwn     { color: $red-alert;     border-color: rgba($red-alert,0.4);     background: rgba($red-alert,0.08); }
   &--reversing { color: $orange-warn; border-color: rgba($orange-warn,0.4);   background: rgba($orange-warn,0.08); }

@@ -6,15 +6,16 @@ layout: default
   <div class="post-hero">
     <div class="container">
       <div class="post-hero__meta">
-        {% if page.category %}
-          {% assign cat = page.category | downcase %}
-          <span class="tag tag--{{ cat }}">{{ page.category }}</span>
+        {% assign page_categories = page.categories %}
+        {% if page_categories == nil and page.category %}
+          {% assign page_categories = page.category | split: ',' %}
         {% endif %}
-        {% if page.difficulty %}
-          <span class="difficulty difficulty--{{ page.difficulty | downcase }}">{{ page.difficulty }}</span>
-        {% endif %}
-        {% if page.platform %}
-          <span class="tag tag--default">{{ page.platform }}</span>
+        {% if page_categories %}
+          {% for category in page_categories %}
+            {% assign category_name = category | strip %}
+            {% assign cat = category_name | downcase | slugify %}
+            <span class="tag tag--{{ cat }}">{{ category_name }}</span>
+          {% endfor %}
         {% endif %}
       </div>
 
@@ -71,7 +72,7 @@ layout: default
       </div>
 
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside class="sidebar sidebar--sticky">
         <!-- Table of contents placeholder — auto-generated via JS -->
         <div class="widget" id="toc-widget" style="display: none;">
           <div class="widget__title">Contents</div>
@@ -88,7 +89,17 @@ layout: default
                 <div class="recent-list__item">
                   <a href="{{ post.url | relative_url }}" class="recent-list__title">{{ post.title }}</a>
                   <span class="recent-list__meta">
-                    {% if post.category %}<span class="tag tag--{{ post.category | downcase }}" style="font-size: 0.6rem; padding: 0.1rem 0.4rem;">{{ post.category }}</span>{% endif %}
+                    {% assign recent_categories = post.categories %}
+                    {% if recent_categories == nil and post.category %}
+                      {% assign recent_categories = post.category | split: ',' %}
+                    {% endif %}
+                    {% if recent_categories %}
+                      {% for category in recent_categories %}
+                        {% assign category_name = category | strip %}
+                        {% assign cat = category_name | downcase | slugify %}
+                        <span class="tag tag--{{ cat }}" style="font-size: 0.6rem; padding: 0.1rem 0.4rem;">{{ category_name }}</span>
+                      {% endfor %}
+                    {% endif %}
                     {{ post.date | date: "%b %d, %Y" }}
                   </span>
                 </div>

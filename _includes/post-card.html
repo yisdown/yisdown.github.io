@@ -1,20 +1,33 @@
 {% assign post = include.post %}
 {% assign featured = include.featured %}
+{% assign post_categories = post.categories %}
+{% if post_categories == nil and post.category %}
+  {% assign post_categories = post.category | split: ',' %}
+{% endif %}
+{% assign category_slugs = '' %}
+{% if post_categories %}
+  {% for category in post_categories %}
+    {% assign category_name = category | strip %}
+    {% assign category_slug = category_name | downcase | slugify %}
+    {% if forloop.first %}
+      {% assign category_slugs = category_slug %}
+    {% else %}
+      {% assign category_slugs = category_slugs | append: ',' | append: category_slug %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
 <a href="{{ post.url | relative_url }}" class="post-card{% if featured %} post-card--featured{% endif %}">
   {% if featured %}
     <div class="post-card__content">
   {% endif %}
 
-  <div class="post-card__meta">
-    {% if post.category %}
-      {% assign cat = post.category | downcase %}
-      <span class="tag tag--{{ cat }}">{{ post.category }}</span>
-    {% endif %}
-    {% if post.difficulty %}
-      <span class="difficulty difficulty--{{ post.difficulty | downcase }}">{{ post.difficulty }}</span>
-    {% endif %}
-    {% if post.platform %}
-      <span class="tag tag--default">{{ post.platform }}</span>
+  <div class="post-card__meta" {% if category_slugs != '' %}data-categories="{{ category_slugs }}"{% endif %}>
+    {% if post_categories %}
+      {% for category in post_categories %}
+        {% assign category_name = category | strip %}
+        {% assign cat = category_name | downcase | slugify %}
+        <span class="tag tag--{{ cat }}">{{ category_name }}</span>
+      {% endfor %}
     {% endif %}
     <span class="post-card__date">{{ post.date | date: "%b %d, %Y" }}</span>
   </div>
@@ -26,8 +39,6 @@
   {% endif %}
 
   <div class="post-card__footer">
-    {% assign words = post.content | number_of_words %}
-    <span>⏱ {{ words | divided_by: 200 | plus: 1 }} min read</span>
     <span class="post-card__read-more">Read more →</span>
   </div>
 

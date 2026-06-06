@@ -15,24 +15,29 @@
         </nav>
       </div>
 
+
       <div>
-        <div class="footer__col-title">Categories</div>
+        <div class="footer__col-title">Platforms</div>
         <nav class="footer__links">
-          <a href="{{ '/writeups/' | relative_url }}">CTF Write-ups</a>
-          <a href="{{ '/writeups/?cat=web' | relative_url }}">Web Security</a>
-          <a href="{{ '/writeups/?cat=pwn' | relative_url }}">Binary Exploitation</a>
-          <a href="{{ '/writeups/?cat=reversing' | relative_url }}">Reversing</a>
-          <a href="{{ '/writeups/?cat=crypto' | relative_url }}">Cryptography</a>
+          {% assign platforms = site.posts | group_by: "platform" | sort: "name" %}
+          {% for platform in platforms %}
+            {% if platform.name %}
+              {% assign platform_slug = platform.name | slugify %}
+              <a href="{{ '/writeups/?platform=' | append: platform_slug | relative_url }}">
+                {{ platform.name }}
+              </a>
+            {% endif %}
+          {% endfor %}
         </nav>
       </div>
     </div>
-
     <div class="footer__bottom">
       <span>© {{ 'now' | date: "%Y" }} {{ site.author }} — Built with Jekyll &amp; GitHub Pages</span>
       <div class="footer__social">
         <a href="{{ '/feed.xml' | relative_url }}" title="RSS Feed">RSS</a>
         <a href="https://github.com/{{ site.github_username }}" title="GitHub" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://twitter.com/{{ site.twitter_username }}" title="Twitter" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://instagram.com/mishhuu_0" title="Instagram" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.com/users/544918949205114880" title="Discord" target="_blank" rel="noopener">Discord</a>
       </div>
     </div>
   </div>

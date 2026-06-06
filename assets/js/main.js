@@ -58,7 +58,7 @@ if (tocWidget && tocEl && postContent) {
         display: block;
         font-family: 'JetBrains Mono', monospace;
         font-size: ${isH3 ? '0.72rem' : '0.78rem'};
-        color: #9a90b8;
+        color: #d4d0e6;
         text-decoration: none;
         padding: 0.3rem 0.4rem;
         border-radius: 3px;
@@ -73,7 +73,7 @@ if (tocWidget && tocEl && postContent) {
       });
       a.addEventListener('mouseleave', () => {
         if (!a.classList.contains('toc-active')) {
-          a.style.color = '#9a90b8';
+          a.style.color = '#d4d0e6';
           a.style.background = 'transparent';
         }
       });
@@ -93,7 +93,7 @@ if (tocWidget && tocEl && postContent) {
 
         if (entry.isIntersecting) {
           tocEl.querySelectorAll('a').forEach(a => {
-            a.style.color = '#9a90b8';
+            a.style.color = '#d4d0e6';
             a.style.background = 'transparent';
             a.style.borderLeftColor = 'transparent';
             a.classList.remove('toc-active');
@@ -128,7 +128,7 @@ document.querySelectorAll('.highlight pre, pre code').forEach(block => {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #9a90b8;
+    color: #d4d0e6;
     background: rgba(74,30,138,0.3);
     border: 1px solid rgba(176,106,255,0.2);
     border-radius: 3px;
@@ -144,7 +144,7 @@ document.querySelectorAll('.highlight pre, pre code').forEach(block => {
   });
   btn.addEventListener('mouseleave', () => {
     if (btn.textContent === 'Copy') {
-      btn.style.color = '#9a90b8';
+      btn.style.color = '#d4d0e6';
       btn.style.borderColor = 'rgba(176,106,255,0.2)';
     }
   });
@@ -157,7 +157,7 @@ document.querySelectorAll('.highlight pre, pre code').forEach(block => {
       btn.style.borderColor = '#39ff8a';
       setTimeout(() => {
         btn.textContent = 'Copy';
-        btn.style.color = '#9a90b8';
+        btn.style.color = '#d4d0e6';
         btn.style.borderColor = 'rgba(176,106,255,0.2)';
       }, 2000);
     });
