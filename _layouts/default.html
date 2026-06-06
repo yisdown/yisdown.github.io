@@ -40,7 +40,7 @@
   </nav>
 
   <!-- Page content -->
-  <main>
+  <main class="{% if page.url == '/' %}site-main site-main--home{% else %}site-main{% endif %}">
     {{ content }}
   </main>
 

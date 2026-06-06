@@ -37,6 +37,14 @@ body {
   }
 }
 
+.site-main {
+  padding-top: $nav-height;
+}
+
+.site-main--home {
+  padding-top: 0;
+}
+
 // Links
 a {
   color: $purple-bright;
