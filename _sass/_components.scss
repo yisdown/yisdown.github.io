@@ -3,12 +3,12 @@
 // ============================================================
 
 .hero {
-  padding-top: calc($nav-height + 5.5rem + env(safe-area-inset-top));
+  padding-top: calc(#{$nav-height} + 5.5rem + env(safe-area-inset-top));
   padding-bottom: 4.5rem;
   position: relative;
 
   @media (max-width: 640px) {
-    padding-top: calc($nav-height + 6.25rem + env(safe-area-inset-top));
+    padding-top: calc(#{$nav-height} + 6.25rem + env(safe-area-inset-top));
     padding-bottom: 4rem;
   }
 
@@ -366,9 +366,9 @@
 
 .sidebar--sticky {
   position: sticky;
-  top: calc($nav-height + 1.25rem);
+  top: calc(#{$nav-height} + 1.25rem);
   align-self: start;
-  max-height: calc(100vh - $nav-height - 2.5rem);
+  max-height: calc(100vh - #{$nav-height} - 2.5rem);
   overflow-y: auto;
   padding-right: 0.25rem;
 
@@ -499,7 +499,7 @@
 // ============================================================
 
 .layout-main {
-  padding-top: calc($nav-height + 3rem);
+  padding-top: calc(#{$nav-height} + 3rem);
   padding-bottom: 4rem;
 
   &__grid {
@@ -519,7 +519,7 @@
 // ============================================================
 
 .post-hero {
-  padding-top: calc($nav-height + 3rem);
+  padding-top: calc(#{$nav-height} + 3rem);
   padding-bottom: 2.5rem;
   border-bottom: 1px solid $border-subtle;
   margin-bottom: 3rem;
@@ -868,7 +868,7 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 3rem;
-  padding-top: calc($nav-height + 3rem);
+  padding-top: calc(#{$nav-height} + 3rem);
   padding-bottom: 4rem;
 
   @media (max-width: 768px) {
@@ -883,7 +883,7 @@
   padding: 2rem;
   text-align: center;
   position: sticky;
-  top: calc($nav-height + 1rem);
+  top: calc(#{$nav-height} + 1rem);
   height: fit-content;
 
   &__avatar {
