@@ -30,59 +30,103 @@ const tocEl = document.getElementById('toc');
 const postContent = document.querySelector('.post-content');
 
 if (tocWidget && tocEl && postContent) {
-  const headings = postContent.querySelectorAll('h2, h3');
+  const headings = Array.from(postContent.querySelectorAll('h2, h3, h4'));
 
   if (headings.length >= 2) {
     tocWidget.style.display = 'block';
 
-    const ul = document.createElement('ul');
-    ul.style.cssText = 'list-style: none; padding: 0; margin: 0;';
+    const slugCounts = new Map();
 
-    headings.forEach((heading, i) => {
-      // Add ID if missing
+    function slugify(text) {
+      const base = text
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '') || 'section';
+
+      const count = slugCounts.get(base) || 0;
+      slugCounts.set(base, count + 1);
+      return count ? `${base}-${count + 1}` : base;
+    }
+
+    function ensureId(heading) {
       if (!heading.id) {
-        heading.id = heading.textContent
-          .toLowerCase()
-          .replace(/[^a-z0-9\s-]/g, '')
-          .replace(/\s+/g, '-');
+        heading.id = slugify(heading.textContent);
       }
+      return heading.id;
+    }
 
-      const li = document.createElement('li');
-      const isH3 = heading.tagName === 'H3';
-      li.style.cssText = `margin: 0; padding: ${isH3 ? '0 0 0 0.75rem' : '0'};`;
-
+    function createTocLink(heading, level) {
       const a = document.createElement('a');
       a.href = `#${heading.id}`;
       a.textContent = heading.textContent;
-      a.style.cssText = `
-        display: block;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: ${isH3 ? '0.72rem' : '0.78rem'};
-        color: #d4d0e6;
-        text-decoration: none;
-        padding: 0.3rem 0.4rem;
-        border-radius: 3px;
-        transition: all 0.15s ease;
-        line-height: 1.4;
-        border-left: 2px solid transparent;
-      `;
+      a.className = `toc__link toc__link--level-${level}`;
+      return a;
+    }
 
-      a.addEventListener('mouseenter', () => {
-        a.style.color = '#b06aff';
-        a.style.background = 'rgba(176,106,255,0.07)';
-      });
-      a.addEventListener('mouseleave', () => {
-        if (!a.classList.contains('toc-active')) {
-          a.style.color = '#d4d0e6';
-          a.style.background = 'transparent';
+    function createList(className) {
+      const list = document.createElement('ul');
+      list.className = className;
+      return list;
+    }
+
+    const rootList = createList('toc__list toc__list--root');
+    let currentH2Item = null;
+    let currentH3Item = null;
+
+    headings.forEach((heading) => {
+      ensureId(heading);
+
+      const level = Number(heading.tagName.slice(1));
+      const item = document.createElement('li');
+      item.className = `toc__item toc__item--level-${level}`;
+      item.appendChild(createTocLink(heading, level));
+
+      if (level === 2) {
+        rootList.appendChild(item);
+        currentH2Item = item;
+        currentH3Item = null;
+        return;
+      }
+
+      if (level === 3) {
+        if (!currentH2Item) {
+          rootList.appendChild(item);
+          currentH3Item = item;
+          return;
         }
-      });
 
-      li.appendChild(a);
-      ul.appendChild(li);
+        let childList = currentH2Item.querySelector(':scope > .toc__list');
+        if (!childList) {
+          childList = createList('toc__list toc__list--nested');
+          currentH2Item.appendChild(childList);
+        }
+
+        childList.appendChild(item);
+        currentH3Item = item;
+        return;
+      }
+
+      if (level === 4) {
+        const parentItem = currentH3Item || currentH2Item;
+        if (!parentItem) {
+          rootList.appendChild(item);
+          return;
+        }
+
+        let childList = parentItem.querySelector(':scope > .toc__list');
+        if (!childList) {
+          childList = createList('toc__list toc__list--subnested');
+          parentItem.appendChild(childList);
+        }
+
+        childList.appendChild(item);
+      }
     });
 
-    tocEl.appendChild(ul);
+    tocEl.appendChild(rootList);
 
     // Scroll spy
     const observer = new IntersectionObserver((entries) => {
@@ -93,13 +137,8 @@ if (tocWidget && tocEl && postContent) {
 
         if (entry.isIntersecting) {
           tocEl.querySelectorAll('a').forEach(a => {
-            a.style.color = '#d4d0e6';
-            a.style.background = 'transparent';
-            a.style.borderLeftColor = 'transparent';
             a.classList.remove('toc-active');
           });
-          link.style.color = '#b06aff';
-          link.style.borderLeftColor = '#b06aff';
           link.classList.add('toc-active');
         }
       });

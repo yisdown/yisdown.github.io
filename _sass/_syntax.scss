@@ -1,5 +1,7 @@
 // Rouge syntax highlighting — dark purple theme
 .highlight {
+  color: $text-primary;
+
   .hll { background-color: rgba($purple-dark, 0.3) }
   .c   { color: #6272a4; font-style: italic } // Comment
   .err { color: $red-alert }                   // Error
@@ -65,5 +67,5 @@
   .il  { color: $orange-warn }
 
   // Line numbers
-  .gl  { color: $text-muted; user-select: none; padding-right: 0.1rem; }
+  .gl  { color: $text-muted; user-select: none; padding-right: 0.45rem; opacity: 0.7; }
 }

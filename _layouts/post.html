@@ -80,33 +80,36 @@ layout: default
         </div>
 
         <!-- Recent posts -->
-        <div class="widget">
-          <div class="widget__title">Recent Posts</div>
-          <div class="recent-list">
-            {% assign recent = site.posts | limit: 5 %}
-            {% for post in recent %}
-              {% unless post.url == page.url %}
-                <div class="recent-list__item">
-                  <a href="{{ post.url | relative_url }}" class="recent-list__title">{{ post.title }}</a>
-                  <span class="recent-list__meta">
-                    {% assign recent_categories = post.categories %}
-                    {% if recent_categories == nil and post.category %}
-                      {% assign recent_categories = post.category | split: ',' %}
-                    {% endif %}
-                    {% if recent_categories %}
-                      {% for category in recent_categories %}
-                        {% assign category_name = category | strip %}
-                        {% assign cat = category_name | downcase | slugify %}
-                        <span class="tag tag--{{ cat }}" style="font-size: 0.6rem; padding: 0.1rem 0.4rem;">{{ category_name }}</span>
-                      {% endfor %}
-                    {% endif %}
-                    {{ post.date | date: "%b %d, %Y" }}
-                  </span>
-                </div>
-              {% endunless %}
-            {% endfor %}
-          </div>
+        <!-- Recent posts -->
+<!-- Recent posts -->
+<div class="widget">
+  <div class="widget__title">Recent Posts</div>
+  <div class="recent-list">
+    {% assign counter = 0 %}
+    {% for post in site.posts %}
+      {% if post.url != page.url and counter < 5 %}
+        <div class="recent-list__item">
+          <a href="{{ post.url | relative_url }}" class="recent-list__title">{{ post.title }}</a>
+          <span class="recent-list__meta">
+            {% assign recent_categories = post.categories %}
+            {% if recent_categories == nil and post.category %}
+              {% assign recent_categories = post.category | split: ',' %}
+            {% endif %}
+            {% if recent_categories %}
+              {% for category in recent_categories %}
+                {% assign category_name = category | strip %}
+                {% assign cat = category_name | downcase | slugify %}
+                <span class="tag tag--{{ cat }}" style="font-size: 0.6rem; padding: 0.1rem 0.4rem;">{{ category_name }}</span>
+              {% endfor %}
+            {% endif %}
+            {{ post.date | date: "%b %d, %Y" }}
+          </span>
         </div>
+        {% assign counter = counter | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
       </aside>
     </div>
   </div>

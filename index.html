@@ -5,7 +5,7 @@ title: Home
 
 <section class="hero">
   <div class="container">
-    <div class="hero__eyebrow">Security Research & CTF Write-ups</div>
+    <div class="hero__eyebrow">CTF Write-ups & Cyber Security Research</div>
     <h1 class="hero__title">
       Exploiting the<br>
       <span class="accent">unknown</span>,<br>
@@ -26,12 +26,15 @@ title: Home
         <div class="hero__stat-label">Write-ups</div>
       </div>
       <div class="hero__stat">
-        <div class="hero__stat-num" id="ctf-count">—</div>
-        <div class="hero__stat-label">CTFs Played</div>
-      </div>
-      <div class="hero__stat">
         <div class="hero__stat-num" id="category-count">{{ site.categories | size }}</div>
         <div class="hero__stat-label">Categories</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-num" id="category-count">
+          {% assign platforms = site.posts | group_by: "platform" | sort: "name" %}
+          {{ platforms | size }}
+        </div>
+        <div class="hero__stat-label">Platfroms/CTFs</div>
       </div>
     </div>
   </div>
@@ -43,7 +46,7 @@ title: Home
       <!-- Main content -->
       <div>
         <!-- Featured post -->
-        {% assign featured = site.posts | where: "featured", true | first %}
+        {% assign featured = site.posts | where: "featured", true | first | limit: 5 %}
         {% if featured %}
           <div class="section-header">
             <h2 class="section-header__title">Featured</h2>
@@ -58,11 +61,12 @@ title: Home
         </div>
 
         <div class="posts-grid">
-          {% assign posts = site.posts | limit: 6 %}
-          {% for post in posts %}
-            {% unless post.featured %}
+          {% assign count = 0 %}
+          {% for post in site.posts %}
+            {% if post.featured != true and count < 12 %}
               {% include post-card.html post=post %}
-            {% endunless %}
+              {% assign count = count | plus: 1 %}
+            {% endif %}
           {% endfor %}
         </div>
       </div>
