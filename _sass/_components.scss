@@ -665,7 +665,7 @@
   h4 { font-size: 1rem; color: $text-secondary; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; }
 
   p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     color: $text-primary;
     line-height: 1.85;
     font-size: 1.08rem;
@@ -761,7 +761,7 @@
 
     > .highlight > pre.highlight {
       padding: 0;
-      max-height: 60rem;
+      max-height: rem;
     }
 
     .rouge-table {
