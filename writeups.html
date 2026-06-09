@@ -144,6 +144,7 @@ permalink: /writeups/
               data-category="{{ category[0] | slugify }}"
             >
               <span>{{ category[0] }}</span>
+              <span>{{ category[1].size }}</span>
             </a>
             {% endfor %}
           </div>
@@ -179,7 +180,9 @@ permalink: /writeups/
   const filterLinks = document.querySelectorAll(".filter-link");
   const postCards = document.querySelectorAll(".post-card");
 
-  const platformLinks = document.querySelectorAll("[data-filter]:not([data-category]):not([data-difficulty])");
+  const platformLinks = document.querySelectorAll(
+    "[data-filter]:not([data-category]):not([data-difficulty])",
+  );
   const categoryLinks = document.querySelectorAll("[data-category]");
   const difficultyLinks = document.querySelectorAll("[data-difficulty]");
 
@@ -192,17 +195,16 @@ permalink: /writeups/
   // ---------------------------
 
   function syncSingleActive(links, activeValue, attrName) {
-    links.forEach(link => {
+    links.forEach((link) => {
       const isActive =
-        activeValue !== "all" &&
-        link.dataset[attrName] === activeValue;
+        activeValue !== "all" && link.dataset[attrName] === activeValue;
 
       link.classList.toggle("is-active", isActive);
     });
   }
 
   function syncMultiActive(links, activeValues, attrName) {
-    links.forEach(link => {
+    links.forEach((link) => {
       const value = link.dataset[attrName];
       link.classList.toggle("is-active", activeValues.includes(value));
     });
@@ -213,28 +215,24 @@ permalink: /writeups/
   // ---------------------------
 
   function applyFilters() {
-    postCards.forEach(card => {
+    postCards.forEach((card) => {
       const platformMatches =
-        activePlatform === "all" ||
-        card.dataset.platform === activePlatform;
+        activePlatform === "all" || card.dataset.platform === activePlatform;
 
       const cardCategories = (card.dataset.categories || "")
         .split(",")
-        .map(c => c.trim())
+        .map((c) => c.trim())
         .filter(Boolean);
 
       const categoryMatches =
         activeCategories.length === 0 ||
-        cardCategories.some(c => activeCategories.includes(c));
+        cardCategories.some((c) => activeCategories.includes(c));
 
       const difficultyMatches =
         activeDifficulty === "all" ||
         card.dataset.difficulty === activeDifficulty;
 
-      const visible =
-        platformMatches &&
-        categoryMatches &&
-        difficultyMatches;
+      const visible = platformMatches && categoryMatches && difficultyMatches;
 
       card.style.display = visible ? "" : "none";
     });
@@ -261,7 +259,7 @@ permalink: /writeups/
   }
 
   function updatePlatformButtons() {
-    filterButtons.forEach(btn => {
+    filterButtons.forEach((btn) => {
       const isActive = btn.dataset.filter === activePlatform;
 
       btn.classList.toggle("active", isActive);
@@ -272,7 +270,7 @@ permalink: /writeups/
 
   function toggleCategory(filter) {
     if (activeCategories.includes(filter)) {
-      activeCategories = activeCategories.filter(c => c !== filter);
+      activeCategories = activeCategories.filter((c) => c !== filter);
     } else {
       activeCategories.push(filter);
     }
@@ -280,8 +278,7 @@ permalink: /writeups/
   }
 
   function toggleDifficulty(filter) {
-    activeDifficulty =
-      activeDifficulty === filter ? "all" : filter;
+    activeDifficulty = activeDifficulty === filter ? "all" : filter;
 
     applyFilters();
   }
@@ -290,13 +287,13 @@ permalink: /writeups/
   // Button events
   // ---------------------------
 
-  filterButtons.forEach(btn => {
+  filterButtons.forEach((btn) => {
     btn.addEventListener("click", function () {
       setPlatform(this.dataset.filter);
     });
   });
 
-  filterLinks.forEach(link => {
+  filterLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
 
@@ -333,7 +330,7 @@ permalink: /writeups/
   if (categoryParam) {
     activeCategories = categoryParam
       .split(",")
-      .map(c => c.trim().toLowerCase())
+      .map((c) => c.trim().toLowerCase())
       .filter(Boolean);
   }
 
