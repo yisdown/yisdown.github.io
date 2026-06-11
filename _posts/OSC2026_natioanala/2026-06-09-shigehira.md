@@ -6,7 +6,7 @@ categories: [Forensics]
 difficulty: Easy
 platform: OSC2026 nationala
 tags: [forensics, network]
-excerpt: ""
+excerpt: "HTTP traffic analysis to extract malware downloads, user agents, and network indicators of compromise."
 ---
 
 ## Summary
@@ -66,10 +66,3 @@ This is the code name for `hewlett-packard` and `netgear`
 
 Answer: `OSCN{hewlett-packard,netgear}`
 
-## Q4
-
-Answer: ``
-
-## Q5
-
-Answer: ``
