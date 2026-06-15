@@ -167,6 +167,7 @@ ul, ol {
   border: 1px solid;
   transition: all $transition-fast;
 
+  &--machine     { color: #4cc9f0;   border-color: rgba(#4cc9f0,0.4);   background: rgba(#4cc9f0,0.08); }
   &--web     { color: $cyan-accent;   border-color: rgba($cyan-accent,0.4);   background: rgba($cyan-accent,0.08); }
   &--forensics    { color: $purple-bright;    border-color: rgba($purple-bright,0.4);    background: rgba($purple-bright,0.08); }
   &--pwn     { color: $red-alert;     border-color: rgba($red-alert,0.4);     background: rgba($red-alert,0.08); }
