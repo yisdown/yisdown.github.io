@@ -178,6 +178,10 @@ ul, ol {
   &--network { color: #4e3de9;   border-color: rgba(#3323c9,0.4);   background: rgba(#3323c9,0.08); }
   &--threat-hunting { color: #4ed410;   border-color: rgba(#4ed410,0.4);   background: rgba(#4ed410,0.08); }
   &--misc { color: $text-secondary; border-color: $border-subtle;          background: rgba(255,255,255,0.04); }
+  &--soc { color: #ff7096; border-color: rgba(#ff7096,0.4); background: rgba(#ff7096,0.08); }
+  &--threat-intelligence { color: #e879f9; border-color: rgba(#e879f9,0.4); background: rgba(#e879f9,0.08); }
+  &--dfir { color: #b6e35a; border-color: rgba(#b6e35a,0.4); background: rgba(#b6e35a,0.08); }
+  &--cloud { color: #72a7ff; border-color: rgba(#72a7ff,0.4); background: rgba(#72a7ff,0.08); }
   &--default { color: $text-secondary; border-color: $border-subtle;          background: rgba(255,255,255,0.04); }
 }
 
