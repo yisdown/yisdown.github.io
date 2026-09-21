@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Power with Errors"
-date: 2026-09-22
+date: 2026-09-21
 categories: [Crypto]
 platform: DefCamp CTF 2026
 tags: [crypto, matrices, lattices, ciphertext-only, xor]

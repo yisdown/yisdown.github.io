@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Gnome Breaker"
-date: 2026-09-22
+date: 2026-09-21
 categories: [Forensics]
 platform: DefCamp CTF 2026
 tags: [forensics, gnome-keyring, john, python]

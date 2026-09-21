@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "aethergate"
-date: 2026-09-22
+date: 2026-09-21
 categories: [Misc]
 difficulty: Hard
 platform: DefCamp CTF 2026
